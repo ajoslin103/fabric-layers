@@ -2,6 +2,7 @@
   "name": "fabric-layers",
   "version": "0.1.0",
   "description": "Layer management and grid system built on Fabric.js",
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -38,5 +39,18 @@
   "files": [
     "dist"
   ],
-  "sideEffects": false
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/fabric-layers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/fabric-layers/issues"
+  },
+  "homepage": "https://github.com/yourusername/fabric-layers#readme",
+  "author": "Your Name",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }

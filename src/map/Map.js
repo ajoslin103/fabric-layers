@@ -27,7 +27,7 @@ export class Map extends mix(Base).with(ModesMixin) {
 
     const canvas = document.createElement('canvas');
     this.container.appendChild(canvas);
-    canvas.setAttribute('id', 'indoors-map-canvas');
+    canvas.setAttribute('id', 'fabric-layers-canvas');
 
     canvas.width = this.width || this.container.clientWidth;
     canvas.height = this.height || this.container.clientHeight;
@@ -60,12 +60,6 @@ export class Map extends mix(Base).with(ModesMixin) {
     this.dx = 0;
     this.dy = 0;
 
-    try {
-      this.addFloorPlan();
-    } catch (e) {
-      console.error(e);
-    }
-
     if (this.showGrid) {
       this.addGrid();
     }
@@ -84,14 +78,6 @@ export class Map extends mix(Base).with(ModesMixin) {
     }, 300);
 
     this.measurement = new Measurement(this);
-  }
-
-  addFloorPlan() {
-    if (!this.floorplan) return;
-    const vm = this;
-    this.floorplan.on('load', img => {
-      vm.addLayer(img);
-    });
   }
 
   addLayer(layer) {
@@ -130,7 +116,7 @@ export class Map extends mix(Base).with(ModesMixin) {
 
   addGrid() {
     this.gridCanvas = this.cloneCanvas();
-    this.gridCanvas.setAttribute('id', 'indoors-grid-canvas');
+    this.gridCanvas.setAttribute('id', 'fabric-layers-grid-canvas');
     this.grid = new Grid(this.gridCanvas, this);
     this.grid.draw();
   }
@@ -159,9 +145,9 @@ export class Map extends mix(Base).with(ModesMixin) {
     this.x = width / 2.0;
     this.y = height / 2.0;
     this.update();
-    process.nextTick(() => {
+    setTimeout(() => {
       this.update();
-    });
+    }, 0);
   }
 
   getBounds() {
@@ -212,9 +198,9 @@ export class Map extends mix(Base).with(ModesMixin) {
     });
 
     this.update();
-    process.nextTick(() => {
+    setTimeout(() => {
       this.update();
-    });
+    }, 0);
   }
 
   setCursor(cursor) {
@@ -234,9 +220,9 @@ export class Map extends mix(Base).with(ModesMixin) {
     this.x = width / 2.0;
     this.y = height / 2.0;
     this.update();
-    process.nextTick(() => {
+    setTimeout(() => {
       this.update();
-    });
+    }, 0);
   }
 
   onResize(width, height) {
@@ -369,9 +355,9 @@ export class Map extends mix(Base).with(ModesMixin) {
 
     this.update();
 
-    process.nextTick(() => {
+    setTimeout(() => {
       this.update();
-    });
+    }, 0);
   }
 
   registerListeners() {

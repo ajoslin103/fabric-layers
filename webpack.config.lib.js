@@ -3,7 +3,7 @@
 const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 
-const libraryName = 'Indoor';
+const libraryName = 'FabricLayers';
 
 let outputFile;
 let mode;
@@ -18,7 +18,7 @@ if (env === 'build') {
 
 const config = {
   mode,
-  entry: './src/Indoor.js',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './lib'),
     filename: outputFile,

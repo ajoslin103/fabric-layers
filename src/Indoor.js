@@ -1,9 +1,9 @@
 import fabric from 'fabric-pure-browser';
 
-import { version } from '../package.json';
+import { version, name } from '../package.json';
 
 console.log('fabricJS ', fabric.version || window.fabric.version);
-console.log('IndoorJS ', version);
+console.log(`${name} v${version}`);
 
 export { version };
 
@@ -15,9 +15,6 @@ export * from './geometry/index';
 
 // map
 export * from './map/index';
-
-// floorplan
-export * from './floorplan/index';
 
 // layer
 export * from './layer/index';

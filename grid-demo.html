@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fabric-layers Grid Demo</title>
+    <style>
+        body { margin: 0; padding: 20px; font-family: Arial, sans-serif; }
+        #canvas-container { border: 1px solid #ccc; margin: 20px 0; width: 800px; height: 600px; background: #f8f9fa; }
+        .controls { margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 4px; }
+        button { padding: 8px 16px; margin-right: 10px; cursor: pointer; }
+        #coordinates { margin-left: 20px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>fabric-layers Grid Demo</h1>
+    <div class="controls">
+        <label style="margin-right:10px;">
+          Min Zoom: <input id="minZoomInput" type="number" step="0.01" value="0.05" style="width:70px;">
+        </label>
+        <label style="margin-right:10px;">
+          Max Zoom: <input id="maxZoomInput" type="number" step="0.01" value="20" style="width:70px;">
+        </label>
+        <button id="resetView">Reset View</button>
+        <span id="coordinates">X: 0, Y: 0</span>
+        <span id="zoomLevel" style="margin-left: 20px; font-family: monospace;">Zoom: 1.00x</span>
+    </div>
+    <div id="canvas-container"></div>
+
+    <!-- Load fabric.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <!-- Load Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Load our library -->
+    <script src="dist/index.umd.js"></script>
+    
+    <script>
+      // Wait for DOM
+      window.addEventListener('DOMContentLoaded', function() {
+        // Get container
+        const container = document.getElementById('canvas-container');
+
+        // Create the map with grid enabled
+        const map = new window.FabricLayers.Map(container, {
+          width: 800,
+          height: 600,
+          showGrid: true,
+          mode: 'GRAB', // Enable pan/zoom mode by default
+        });
+
+        // Show grid if not auto-enabled
+        if (!map.grid) {
+          if (typeof map.addGrid === 'function') map.addGrid();
+        }
+
+        // UI controls
+        document.getElementById('resetView').onclick = function() {
+          if (typeof map.reset === 'function') map.reset();
+        };
+        // Wire min/max zoom inputs
+        const minZoomInput = document.getElementById('minZoomInput');
+        const maxZoomInput = document.getElementById('maxZoomInput');
+        function updateZoomLimits() {
+          let min = parseFloat(minZoomInput.value);
+          let max = parseFloat(maxZoomInput.value);
+          if (isNaN(min) || min <= 0) min = 0.01;
+          if (isNaN(max) || max <= min) max = min + 0.01;
+          map.minZoom = min;
+          map.maxZoom = max;
+          // Clamp current zoom if needed
+          if (map.zoom < min) map.setZoom(min);
+          if (map.zoom > max) map.setZoom(max);
+        }
+        minZoomInput.addEventListener('change', updateZoomLimits);
+        maxZoomInput.addEventListener('change', updateZoomLimits);
+        // Set initial limits
+        updateZoomLimits();
+
+        // Mouse coordinates display and event logging via eventemitter2
+        const coords = document.getElementById('coordinates');
+        const zoomSpan = document.getElementById('zoomLevel');
+        function updateZoomDisplay() {
+          const zoom = map.zoom || 1;
+          zoomSpan.textContent = `Zoom: ${zoom.toFixed(2)}x`;
+        }
+        map.on('mouse:move', function(e) {
+          if (e && e.pointer) {
+            coords.textContent = `X: ${e.pointer.x.toFixed(1)}, Y: ${e.pointer.y.toFixed(1)}`;
+          }
+        });
+        map.on('mouse:out', function() {
+          coords.textContent = 'X: -, Y: -';
+        });
+        // Update zoom display on zoom events
+        // Listen for map updates to refresh zoom display
+        map.on('update', updateZoomDisplay);
+        // Initial display
+        updateZoomDisplay();
+
+        // Log some events for demo
+        map.on('mouse:down', function(e) {
+          if (e && e.pointer) {
+            console.log('mouse:down', e.pointer);
+          }
+        });
+        map.on('mouse:up', function(e) {
+          if (e && e.pointer) {
+            console.log('mouse:up', e.pointer);
+          }
+        });
+        map.on('mouse:dblclick', function(e) {
+          if (e && e.pointer) {
+            console.log('mouse:dblclick', e.pointer);
+          }
+        });
+      });
+    </script>
+</body>
+</html>

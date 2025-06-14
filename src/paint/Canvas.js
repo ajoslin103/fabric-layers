@@ -17,7 +17,7 @@ export class Canvas extends Base {
 
     const canvas = document.createElement('canvas');
     this.container.appendChild(canvas);
-    canvas.setAttribute('id', 'indoorjs-canvas');
+    canvas.setAttribute('id', 'fabric-layers-paint-canvas');
 
     canvas.width = this.width || this.container.clientWidth;
     canvas.height = this.height || this.container.clientHeight;
@@ -265,7 +265,7 @@ export class Canvas extends Base {
     const canvas = this.canvas;
     const cursorCanvas = document.createElement('canvas');
     this.canvas.wrapperEl.appendChild(cursorCanvas);
-    cursorCanvas.setAttribute('id', 'indoorjs-cursor-canvas');
+    cursorCanvas.setAttribute('id', 'fabric-layers-cursor-canvas');
     cursorCanvas.style.position = 'absolute';
     cursorCanvas.style.top = '0';
     cursorCanvas.style.pointerEvents = 'none';

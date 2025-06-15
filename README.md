@@ -18,6 +18,7 @@ Check out the [CHANGELOG](CHANGELOG.md) for the complete list of changes.
 
 ## ✨ Classes
 
+```
 Base (EventEmitter2)
 ├── Map (+ ModesMixin)
 │   ├── Grid
@@ -40,6 +41,7 @@ Base (EventEmitter2)
 └── Measurement System
     ├── Measurement
     └── Measurer
+```
 
 ## 🤝 Contributing
 

@@ -1,42 +1,75 @@
+/**
+ * Point class extending fabric.Point with additional functionality
+ * @param {number|{x: number, y: number}|Array<number>} x - X coordinate or point object/array
+ * @param {number} [y] - Y coordinate if first parameter is a number
+ */
 export class Point extends fabric.Point {
-  constructor(...params) {
-    let x;
-    let y;
-    if (params.length > 1) {
-      [x, y] = params;
-    } else if (params.length === 0 || !params[0]) {
-      [x, y] = [0, 0];
-    } else if (Object.prototype.hasOwnProperty.call(params[0], 'x')) {
-      x = params[0].x;
-      y = params[0].y;
-    } else if (params[0].length) {
-      [[x, y]] = params;
-    } else {
-      console.error(
-        'Parameter for Point is not valid. Use Point(x,y) or Point({x,y}) or Point([x,y])',
-        params
-      );
+  /**
+   * @param {number|{x: number, y: number}|Array<number>} x - X coordinate or point object/array
+   * @param {number} [y] - Y coordinate if first parameter is a number
+   */
+  constructor(x, y) {
+    let xCoord = 0;
+    let yCoord = 0;
+
+    if (arguments.length > 1) {
+      xCoord = Number(x) || 0;
+      yCoord = Number(y) || 0;
+    } else if (!x) {
+      [xCoord, yCoord] = [0, 0];
+    } else if (typeof x === 'object') {
+      if ('x' in x && 'y' in x) {
+        xCoord = Number(x.x) || 0;
+        yCoord = Number(x.y) || 0;
+      } else if (Array.isArray(x) && x.length >= 2) {
+        xCoord = Number(x[0]) || 0;
+        yCoord = Number(x[1]) || 0;
+      }
     }
 
-    super(x, y);
+    super(xCoord, yCoord);
   }
 
+  /**
+   * Set the X coordinate
+   * @param {number} x - The X coordinate
+   */
   setX(x) {
-    this.x = x || 0;
+    this.x = Number(x) || 0;
   }
 
+  /**
+   * Set the Y coordinate
+   * @param {number} y - The Y coordinate
+   */
   setY(y) {
-    this.y = y || 0;
+    this.y = Number(y) || 0;
   }
 
+  /**
+   * Copy coordinates from another point
+   * @param {Point|{x: number, y: number}} point - The point to copy from
+   */
   copy(point) {
-    this.x = point.x;
-    this.y = point.y;
+    if (point && typeof point === 'object' && 'x' in point && 'y' in point) {
+      this.x = Number(point.x) || 0;
+      this.y = Number(point.y) || 0;
+    }
   }
 
+  /**
+   * Get coordinates as an array
+   * @returns {[number, number]} Array containing [x, y] coordinates
+   */
   getArray() {
     return [this.x, this.y];
   }
 }
 
-export const point = (...params) => new Point(...params);
+/**
+ * Factory function to create a new Point
+ * @param {number|{x: number, y: number}|Array<number>} x - X coordinate or point object/array
+ * @param {number} [y] - Y coordinate if first parameter is a number
+ * @returns {Point} A new Point instance
+ */
+export const point = (x, y) => new Point(x, y);

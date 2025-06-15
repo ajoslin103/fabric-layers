@@ -2,7 +2,6 @@
 
 import chai from 'chai';
 import { fabric } from 'fabric';
-import { Map, Marker } from '../lib/indoor.js';
 
 window.fabric = fabric;
 

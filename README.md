@@ -18,36 +18,29 @@ Check out the [CHANGELOG](CHANGELOG.md) for the complete list of changes.
 
 ## ✨ Classes
 
-src/paint/ArrowHead.js
-src/paint/Arrow.js
-src/paint/Canvas.js
-src/paint/PaintManager.d.ts
-src/types/index.d.ts
-src/core/Base.js
-src/measurement/Measurement.js
-src/measurement/Measurer.js
-src/map/ModesMixin.js
-src/map/Map.js
-src/layer/Layer.d.ts
-src/layer/Tooltip.js
-src/layer/marker/Icon.js
-src/layer/marker/Marker.js
-src/layer/marker/MarkerGroup.js
-src/layer/vector/Line.js
-src/layer/vector/Circle.js
-src/layer/vector/Rect.js
-src/layer/vector/Polyline.js
-src/layer/Connector.js
-src/layer/Group.js
-src/layer/Layer.js
-src/lib/MagicScroll.js
-src/lib/mix.js
-src/lib/impetus.js
-src/geometry/Point.js
-src/grid/Axis.js
-src/grid/Grid.js
-src/grid/Grid.d.ts
-
+Base (EventEmitter2)
+├── Map (+ ModesMixin)
+│   ├── Grid
+│   ├── Point
+│   └── Measurement
+├── Layer
+│   ├── Vector Layers (Line, Circle, Rect, Polyline)
+│   ├── Marker System
+│   │   ├── Marker
+│   │   ├── MarkerGroup
+│   │   └── Icon
+│   ├── Group
+│   ├── Connector
+│   └── Tooltip
+├── Paint System
+│   ├── Canvas
+│   ├── Arrow
+│   ├── ArrowHead
+│   └── PaintManager
+└── Measurement System
+    ├── Measurement
+    └── Measurer
+    
 ## 🤝 Contributing
 
 PRs and issues are welcome!

@@ -40,7 +40,7 @@ Base (EventEmitter2)
 └── Measurement System
     ├── Measurement
     └── Measurer
-    
+
 ## 🤝 Contributing
 
 PRs and issues are welcome!
@@ -55,6 +55,6 @@ Please follow the [Conventional Commits](https://www.conventionalcommits.org/) s
 
 ## 📄 Licenses
 
-MIT © 2022-2025 [Martin Wairegi](https://github.com/martinwairegi) (original author of ReactIndoorMapping)
+MIT © 2025 [Allen Joslin](https://github.com/ajoslin103) (current author of fabric-layers)
 
-MIT © 2022-2025 [Allen Joslin](https://github.com/ajoslin103) (current author of fabric-layers)
+MIT © 2022 [Martin Wairegi](https://github.com/martinwairegi) (original author of ReactIndoorMapping)
